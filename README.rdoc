@@ -1,0 +1,9 @@
+== README
+Please look at the challenge details in the MarsRoverChallenge.pdf
+
+In overview this repository includes a own-developed solution for a Mars Rover that takes inputs and moves accross a spherical map.
+
+In order to run this code:
+
+
+Ruby: 2.1.2
