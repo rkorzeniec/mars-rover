@@ -49,7 +49,13 @@ class MarsRover
 		end
 
 		def move(x, y)
-
+			if !@planet.obstacle_at?(x, y)
+				new_x, new_y = @planet.get_location(x, y)
+				@location[:x] = new_x
+				@location[:y] = new_y
+			else
+				print "Obstacle"
+			end
 		end
 
 		def turn_left
