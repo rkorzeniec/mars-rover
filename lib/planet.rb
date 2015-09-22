@@ -44,8 +44,16 @@ class Planet
 		planet = "Size -> x:#{@x} y:#{@y}\n\n"
 		for i = @y in @y..0
 			planet += "#{i} |"
-			#for j = @x
-
+			for j = @x in 0..@x
+				if obstacle_at?(j, i)
+					planet += "O"
+				elsif j == rover_x && i == rover_y
+					planet += "R"
+				else
+					planet += "-"
+				j += 1
+			end
+			planet += "\n"
 			i -= 1
 		end
 	end
