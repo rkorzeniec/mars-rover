@@ -1,60 +1,89 @@
 class Planet
 	attr_reader :x, :y, :obstacles
 
-	def initialise(x = 30, y = 30)
+	def initialize(x = 30, y = 30)
 		@x = x
 		@y = y
 		@obstacles = Array.new
+
 		i = 0
-		rand(5...x).each do
-			rand_x = rand(0...x)
-			rand_y = rand(0...y)
+		num = rand(5..30)
+		num.times do
+			rand_x = rand(0..30)
+			rand_y = rand(0..30)
 			unless obstacle_at?(rand_x, rand_y)
-				obstacle[i] = [rand_x, rand_y]
+				@obstacles[i] = [rand_x, rand_y]
 				i += 1
 			end
 		end
+		#print "#{@obstacles} \n"
 	end
 
 	def obstacle_at?(x, y)
 		isObstacle = false
-		@obstacles.each do |obstacle|
-			if obstacle[:x] == x && obstacle[:y] == y
-				isObstacle = true
-				break
-			end
+		if @obstacles.include?([x, y])
+			isObstacle = true
 		end
+
+		return isObstacle
 	end
 
 	def actual_location(x, y)
-		new_x = case x 
-			when x > @x then 0
-			when x < 0 then @x
-			else x
+		if x > @x
+			new_x = 0
+		elsif x < 0 
+			new_x = @x
+		else
+			new_x = x
 		end
 
-		new_y = case y 
-			when y > @y then 0
-			when y < 0 then @y
-			else y
+		if y > @y
+			new_y = 0
+		elsif y < 0 
+			new_y = @y
+		else
+			new_y = y
 		end
+
+		return new_x, new_y
 	end
 
-	def to_s(rover_x, rover_y)
+	def to_s()
 		planet = "Size -> x:#{@x} y:#{@y}\n\n"
-		for i = @y in @y..0
-			planet += "#{i} |"
-			for j = @x in 0..@x
-				if obstacle_at?(j, i)
-					planet += "O"
-				elsif j == rover_x && i == rover_y
-					planet += "R"
-				else
-					planet += "-"
-				j += 1
-			end
-			planet += "\n"
-			i -= 1
-		end
+		
+		# i = 29
+		# j = 0
+
+		# 30.times do
+		# 	if i < 10 
+		# 		planet += "#{i}  |"
+		# 	else 
+		# 		planet += "#{i} |"
+		# 	end
+		# 	30.times do
+		# 		if obstacle_at?(j, i)
+		# 			planet += " O "
+		# 		#elsif j == rover_x && i == rover_y
+		# 			#planet += "R"
+		# 		else
+		# 			planet += " - "
+		# 		end
+		# 		j += 1
+		# 	end
+
+		# 	planet += "\n"
+		# 	i -= 1
+		# end
+		# 31.times do
+		# 	planet += "___"
+		# end
+		# i = 0
+		# planet += "\n   "
+		# 30.times do
+		# 	planet += "#{i}"
+		# 	i += 1
+		# end
+
+		return planet
 	end
 end
