@@ -1,6 +1,6 @@
 class MarsRover
 	attr_accessor :direction, :location
-	def initialise(planet, direction, start_location)
+	def initialise(planet, direction, start_location=[0,0])
 		@planet = planet
 		@direction = direction
 		@location = { x: start_location.x, y: start_location.y }
@@ -50,7 +50,7 @@ class MarsRover
 
 		def move(x, y)
 			if !@planet.obstacle_at?(x, y)
-				new_x, new_y = @planet.get_location(x, y)
+				new_x, new_y = @planet.actual_location(x, y)
 				@location[:x] = new_x
 				@location[:y] = new_y
 			else
