@@ -1,9 +1,9 @@
 class MarsRover
 	attr_accessor :direction, :location
-	def initialise(planet, direction, start_location=[0,0])
+	def initialize(planet, direction="N", start_location=[0,0])
 		@planet = planet
 		@direction = direction
-		@location = { x: start_location.x, y: start_location.y }
+		@location = { x: start_location[0], y: start_location[1] }
 	end
 
 	def input(action)
@@ -24,8 +24,8 @@ class MarsRover
 			coordinates = case @direction
 		      when 'N' then [0, 1]
 		      when 'S' then [0, -1]
-		      when 'E' then [1, 0]
-		      when 'W' then [-1, 0]
+		      when 'E' then [-1, 0]
+		      when 'W' then [1, 0]
 		    end
 
 		    new_x = @location[:x] + coordinates[0]
@@ -38,8 +38,8 @@ class MarsRover
 			coordinates = case @direction
 		      when 'N' then [0, -1]
 		      when 'S' then [0, 1]
-		      when 'E' then [-1, 0]
-		      when 'W' then [1, 0]
+		      when 'E' then [1, 0]
+		      when 'W' then [-1, 0]
 		    end
 
 		    new_x = @location[:x] + coordinates[0]
@@ -54,7 +54,7 @@ class MarsRover
 				@location[:x] = new_x
 				@location[:y] = new_y
 			else
-				print "Obstacle"
+				puts "Obstacle!"
 			end
 		end
 
@@ -75,6 +75,4 @@ class MarsRover
 				when 'W' then 'S'
 			end
 		end
-end
-
-module 
+end 
