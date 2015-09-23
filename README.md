@@ -65,6 +65,12 @@ F L L B B B R F F F F S
 
 ## Repository contents
 The description of the repository contents
+File/Directory 	 | Overview
+---------------- | -----------------------
+/lib		   	 | Directory with classes
+/lib/planet.rb   | Planet class implementation
+/lib/rovber.rb   | MarsRover class implementation
+run.rb 			 | Script allowing to run the app and send user input
 
 ## Dependencies
 Ruby: 2.1.2
