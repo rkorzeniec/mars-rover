@@ -2,12 +2,14 @@ class Planet
 	attr_reader :x, :y, :obstacles
 
 	def initialize(x = 30, y = 30)
-		@x = x
-		@y = y
+		#initialise class' main attributes
+		@x = x.to_i
+		@y = y.to_i
 		@obstacles = Array.new
 
+		#generate random obstacles
 		i = 0
-		num = rand(5..30)
+		num = rand(10..60)
 		num.times do
 			rand_x = rand(0..30)
 			rand_y = rand(0..30)
@@ -16,9 +18,9 @@ class Planet
 				i += 1
 			end
 		end
-		#print "#{@obstacles} \n"
 	end
 
+	#check if obstacle exsists at a given point
 	def obstacle_at?(x, y)
 		isObstacle = false
 		if @obstacles.include?([x, y])
@@ -28,19 +30,20 @@ class Planet
 		return isObstacle
 	end
 
+	#implementation of grid (sphere-like) wrapping
 	def actual_location(x, y)
-		if x > @x
+		if x > (@x - 1)
 			new_x = 0
 		elsif x < 0 
-			new_x = @x
+			new_x = (@x - 1)
 		else
 			new_x = x
 		end
 
-		if y > @y
+		if y > (@y - 1)
 			new_y = 0
 		elsif y < 0 
-			new_y = @y
+			new_y = (@y - 1)
 		else
 			new_y = y
 		end
@@ -48,42 +51,48 @@ class Planet
 		return new_x, new_y
 	end
 
-	def to_s()
-		planet = "Size -> x:#{@x} y:#{@y}\n\n"
-		
-		# i = 29
-		# j = 0
+	#draw map of the planet with grid, obstacles and rover position
+	def to_s(rover_x, rover_y)
+		grid = "Planet | x:#{@x} y:#{@y}\n\n"
 
-		# 30.times do
-		# 	if i < 10 
-		# 		planet += "#{i}  |"
-		# 	else 
-		# 		planet += "#{i} |"
-		# 	end
-		# 	30.times do
-		# 		if obstacle_at?(j, i)
-		# 			planet += " O "
-		# 		#elsif j == rover_x && i == rover_y
-		# 			#planet += "R"
-		# 		else
-		# 			planet += " - "
-		# 		end
-		# 		j += 1
-		# 	end
+		#loop through Y axis to crate the grid
+		j = @y - 1
+		(@y + 2).times do
+			if j >= 0
+				grid += "#{j}"
+				if j > 9
+					grid += " |"
+				else
+					grid += "  |"
+				end
+			else
+				grid += "   |"
+			end
 
-		# 	planet += "\n"
-		# 	i -= 1
-		# end
-		# 31.times do
-		# 	planet += "___"
-		# end
-		# i = 0
-		# planet += "\n   "
-		# 30.times do
-		# 	planet += "#{i}"
-		# 	i += 1
-		# end
-
-		return planet
+			#loop through X axis to fill the grid with neccessary objects
+			i = 0
+			@x.times do 
+				if j >= 0
+					if obstacle_at?(i, j)
+						grid += " O  "
+					elsif i == rover_x && j == rover_y
+						grid += " R  "
+					else
+						grid += " -  "
+					end	
+				elsif j == -1
+					grid += "____"
+				elsif i < 10
+					grid += " #{i}  "
+				else
+					grid += " #{i} "
+				end
+				i += 1
+			end
+			j -= 1
+			grid += "\n"
+		end
+		grid += "\n"
+		return grid
 	end
 end
