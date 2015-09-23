@@ -2,6 +2,15 @@ class Planet
 	attr_reader :x, :y, :obstacles
 
 	def initialize(x = 30, y = 30)
+		#input error handling
+		if x.to_i < 1
+			x = 30
+		end
+
+		if y.to_i < 1
+			y = 30
+		end
+
 		#initialise class' main attributes
 		@x = x.to_i
 		@y = y.to_i

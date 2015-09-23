@@ -3,8 +3,27 @@ class MarsRover
 	def initialize(planet, direction="N", start_location=[0,0])
 		#initialise class' attributes
 		@planet = planet
-		@direction = direction
+
+		#incorrect input handling
+		if start_location[0].to_i >= planet.x && planet.x > 0
+			start_location[0] = planet.x - 1
+		else
+			start_location[0] = 0
+		end
+
+		if start_location[1].to_i >= planet.y && planet.y > 0
+			start_location[1] = planet.y - 1
+		else
+			start_location[1] = 0
+		end
 		@location = { x: start_location[0].to_i, y: start_location[1].to_i }
+
+		#incorrect input handling
+		if !["N", "E", "S", "W"].include? direction
+			@direction = "N"
+		else
+			@direction = direction
+		end
 	end
 
 	#parse user's input
