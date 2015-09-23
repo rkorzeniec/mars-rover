@@ -16,6 +16,9 @@ if custom_planet
 	puts "What is the planet size (X, Y)? e.g. 50 49"
 	planet_size = STDIN.gets
 	planet_size = planet_size.split(" ")
+	planet = Planet.new(planet_size[0], planet_size[1])
+else
+	planet = Planet.new
 end
 
 puts "What is the location of the rover? e.g. 3 5 N"
@@ -23,7 +26,6 @@ rover_location = STDIN.gets
 rover_location.upcase!
 rover_location = rover_location.split(" ")
 
-planet = Planet.new(planet_size[0], planet_size[1])
 rover = MarsRover.new(planet, rover_location[2], [rover_location[0], rover_location[1]])
 
 #loop control variable
