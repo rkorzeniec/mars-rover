@@ -1,11 +1,13 @@
 class MarsRover
 	attr_accessor :direction, :location
 	def initialize(planet, direction="N", start_location=[0,0])
+		#initialise class' attributes
 		@planet = planet
 		@direction = direction
-		@location = { x: start_location[0], y: start_location[1] }
+		@location = { x: start_location[0].to_i, y: start_location[1].to_i }
 	end
 
+	#parse user's input
 	def input(action)
 		case action
 			when 'L' then turn_left
@@ -15,8 +17,9 @@ class MarsRover
 		end
 	end
 
+	#rover's status output
 	def to_s
-		"X: #{@location[:x]} Y: #{@location[:y]} Direction: #{@direction}"
+		"Rover Status | X: #{@location[:x]} Y: #{@location[:y]} Direction: #{@direction}"
 	end
 
 	private
@@ -49,12 +52,15 @@ class MarsRover
 		end
 
 		def move(x, y)
+			#colision detection
 			if !@planet.obstacle_at?(x, y)
+				#cet current location from map
 				new_x, new_y = @planet.actual_location(x, y)
+				#set the new rover location
 				@location[:x] = new_x
 				@location[:y] = new_y
 			else
-				puts "Obstacle!"
+				puts "Obstacle at X:#{x} Y:#{y}!"
 			end
 		end
 
